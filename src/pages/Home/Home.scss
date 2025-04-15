@@ -1,0 +1,10 @@
+.home {
+  flex: 1;
+  max-width: 1200px;
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
