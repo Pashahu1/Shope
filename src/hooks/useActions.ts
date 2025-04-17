@@ -1,7 +1,7 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { actions } from '../store/ShopingCart/ShopingCart';
+import { actions } from '../store/shopingCart/shopingCartSlice';
 
 const rootActions = {
   ...actions,

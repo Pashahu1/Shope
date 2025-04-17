@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { postProducts } from '../../utils/httpClient';
 import './CreateProduct.scss';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../store/addNewProduct/addNewProductSlice';
 
 export const CreateProduct = () => {
   const [title, setTitle] = useState<string>('');
@@ -10,6 +12,7 @@ export const CreateProduct = () => {
   const [image, setImage] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,13 +21,15 @@ export const CreateProduct = () => {
       setError('Please fill in all fields');
       return;
     } else if (title.length < 3 || title.length > 10) {
-      setError('Title must be at least 3 characters long');
+      setError('Title must be at least 3 characters long and less than 10');
       return;
     } else if (price <= 0) {
       setError('Price must be greater than 0');
       return;
     } else if (description.length < 10 || description.length > 30) {
-      setError('Description must be at least 10 characters long');
+      setError(
+        'Description must be at least 10 characters long and less than 30',
+      );
       return;
     } else if (image.length < 10) {
       setError('Image link must be at least 10 characters long');
@@ -39,20 +44,16 @@ export const CreateProduct = () => {
           image,
         });
 
-        console.log('Posted product:', newProduct);
-
+        dispatch(actions.addNewProduct(newProduct));
         setSuccess('Product created successfully!');
-        setError('');
-
         setTitle('');
         setPrice(0);
         setDescription('');
         setCategory('');
         setImage('');
+        setError('');
       } catch (error) {
         setError('Failed to create product. Please try again later.');
-      } finally {
-        setSuccess('Product created successfully!');
       }
     }
   };

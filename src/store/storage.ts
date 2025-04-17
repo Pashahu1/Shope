@@ -12,3 +12,16 @@ export const loadCart = (): Products[] => {
     return [];
   }
 };
+
+export const saveNewProducts = (products: Products[]) => {
+  localStorage.setItem('newProducts', JSON.stringify(products));
+};
+
+export const loadNewProducts = (): Products[] => {
+  try {
+    const data = localStorage.getItem('newProducts');
+    return data ? JSON.parse(data) : [];
+  } catch {
+    return [];
+  }
+};

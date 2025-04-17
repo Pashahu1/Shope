@@ -1,9 +1,19 @@
-import { Products, NewProduct } from '../types/Products';
+import { Products, Product, NewProduct } from '../types/Products';
 
 export function getProducts(): Promise<Products[]> {
   return fetch('https://fakestoreapi.com/products').then(response => {
     if (!response.ok) {
       throw new Error('Failed to fetch users');
+    }
+
+    return response.json();
+  });
+}
+
+export function getProduct(id: number): Promise<Product> {
+  return fetch(`https://fakestoreapi.com/products/${id}`).then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to fetch product');
     }
 
     return response.json();

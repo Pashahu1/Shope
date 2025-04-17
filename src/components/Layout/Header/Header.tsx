@@ -1,11 +1,9 @@
-import { ControlPanel } from "./ControlPanel/ControlPanel";
-import "./Header.scss";
-import { NavBar } from "./Navbar/NavBar";
+import './Header.scss';
+import { NavBar } from './Navbar/NavBar';
 
 export const Header = () => {
   return (
-    <header className='header'>
-      <ControlPanel />
+    <header className="header">
       <NavBar />
     </header>
   );

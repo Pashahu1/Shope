@@ -3,6 +3,8 @@ import { App } from './App';
 import { CreateProduct } from './pages/CreateProduct/CreateProduct';
 import { ProductCard } from './pages/ProductCard/ProductCard';
 import { Home } from './pages/Home/Home';
+import { ProductDetails } from './pages/ProductCard/ProductDetails/ProducrDetails';
+import { Products } from './pages/Products/Products';
 
 export const Root = () => {
   return (
@@ -12,7 +14,8 @@ export const Root = () => {
           <Route index element={<Home />} />
           <Route path="create-product" element={<CreateProduct />} />
           <Route path="product-card" element={<ProductCard />} />
-          {/* <Route path="product-card/:productId" element={<ProductCard />} /> */}
+          <Route path="products" element={<Products />} />
+          <Route path="products/:id" element={<ProductDetails />} />
         </Route>
       </Routes>
     </Router>
