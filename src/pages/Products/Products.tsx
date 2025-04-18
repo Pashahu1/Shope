@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Cart } from '../../components/Shered/Cart/Cart';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ProductsType } from '../../types/Products';
 import { getProducts } from '../../utils/httpClient';
 import './Products.scss';
@@ -11,7 +11,10 @@ export const Products = () => {
   const [error, setError] = useState<string>('');
   const newProducts = useSelector((state: any) => state.addNewProduct);
 
-  const updatedProducts = [...products, ...newProducts];
+  const updatedProducts = useMemo(
+    () => [...products, ...newProducts],
+    [products, newProducts],
+  );
 
   useEffect(() => {
     getProducts()
@@ -32,7 +35,7 @@ export const Products = () => {
           updatedProducts.map(product => (
             <Cart key={product.id} product={product} />
           ))}
-        {error && <div>{error}</div>}
+        {error && <p>{error}</p>}
       </div>
     </div>
   );

@@ -4,13 +4,10 @@ import { ProductType } from '../../../types/Products';
 import { getProduct } from '../../../utils/httpClient';
 import './ProductDetails.scss';
 import { Button } from '../../../components/Shered/Button/Button';
-// import { useDispatch } from 'react-redux';
-// import { actions } from '../../../store/shopingCart/shopingCartSlice';
 
 export const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<ProductType | null>(null);
-  // const dispatch = useDispatch();
 
   console.log('ProductDetails', id);
   console.log('ProductDetails', product);

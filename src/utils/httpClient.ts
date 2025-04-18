@@ -1,6 +1,6 @@
-import { Products, Product, NewProduct } from '../types/Products';
+import { ProductsType, ProductType, NewProductType } from '../types/Products';
 
-export function getProducts(): Promise<Products[]> {
+export function getProducts(): Promise<ProductsType[]> {
   return fetch('https://fakestoreapi.com/products').then(response => {
     if (!response.ok) {
       throw new Error('Failed to fetch users');
@@ -10,7 +10,7 @@ export function getProducts(): Promise<Products[]> {
   });
 }
 
-export function getProduct(id: number): Promise<Product> {
+export function getProduct(id: number): Promise<ProductType> {
   return fetch(`https://fakestoreapi.com/products/${id}`).then(response => {
     if (!response.ok) {
       throw new Error('Failed to fetch product');
@@ -20,7 +20,7 @@ export function getProduct(id: number): Promise<Product> {
   });
 }
 
-export function postProducts(product: NewProduct): Promise<Products> {
+export function postProducts(product: NewProductType): Promise<ProductsType> {
   return fetch('https://fakestoreapi.com/products', {
     method: 'POST',
     headers: {
@@ -36,7 +36,7 @@ export function postProducts(product: NewProduct): Promise<Products> {
   });
 }
 
-export function deleteProduct(id: number): Promise<Products> {
+export function deleteProduct(id: number): Promise<ProductsType> {
   return fetch(`https://fakestoreapi.com/products/${id}`, {
     method: 'DELETE',
   }).then(response => {

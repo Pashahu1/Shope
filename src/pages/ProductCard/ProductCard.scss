@@ -1,0 +1,11 @@
+.product-card {
+  max-width: 1200px;
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(3, 280px);
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+  }
+}

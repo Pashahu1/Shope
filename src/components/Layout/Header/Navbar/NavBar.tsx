@@ -4,18 +4,22 @@ import './NavBar.scss';
 export const NavBar = () => {
   return (
     <nav className="nav">
-      <ul className="nav-list">
-        <li className="nav-item">
-          <NavLink to={'/'}>Home</NavLink>
-        </li>
-        <li className="nav-item">
+      <ul className="nav__list">
+        <li className="nav__item">
           <NavLink to={'products'}>Products</NavLink>
         </li>
-        <li className="nav-item">
+        <li className="nav__item">
           <NavLink to={'create-product'}>Create Product</NavLink>
         </li>
-        <li className="nav-item">
-          <NavLink to={'product-card'}>Product Card</NavLink>
+        <li className="nav__item">
+          <NavLink to={'product-card'}>
+            {' '}
+            <img
+              className="nav__item-img"
+              src="shop-icon.png"
+              alt="shop-icon"
+            />
+          </NavLink>
         </li>
       </ul>
     </nav>

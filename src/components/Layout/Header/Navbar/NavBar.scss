@@ -1,6 +1,15 @@
 .nav {
-  &-list {
+  &__list {
     display: flex;
+    align-items: center;
     gap: 20px;
+  }
+
+  &__item {
+    &-img {
+      width: 24px;
+      height: 24px;
+      object-fit: cover;
+    }
   }
 }

@@ -4,6 +4,7 @@ import { Button } from '../Button/Button';
 import './Cart.scss';
 import { actions } from '../../../store/shopingCart/shopingCartSlice';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 type CartProps = {
   product: ProductsType;
@@ -11,9 +12,15 @@ type CartProps = {
 
 export const Cart: React.FC<CartProps> = ({ product }) => {
   const dispatch = useDispatch();
+  const shopingCart: ProductsType[] = useSelector(
+    (state: any) => state.shopingCart,
+  );
+
+  const isExists: boolean = shopingCart.some(p => p.id === product.id);
 
   return (
     <article className="cart">
+      <span className="cart-delete">X</span>
       <img className="cart__img" src={product.image} alt={product.title} />
 
       <h3 className="cart__title">
@@ -30,7 +37,10 @@ export const Cart: React.FC<CartProps> = ({ product }) => {
 
       <div className="cart__button">
         <Button
-          title="Add to Cart"
+          title={isExists ? 'Remove Cart' : 'Add to Cart'}
+          className={`cart__button ${
+            isExists ? 'cart__button--remove' : 'cart__button--add'
+          }`}
           onClick={() => dispatch(actions.toggleShopingCart(product))}
         />
       </div>
