@@ -4,13 +4,19 @@ import { ProductType } from '../../../types/Products';
 import { getProduct } from '../../../utils/httpClient';
 import './ProductDetails.scss';
 import { Button } from '../../../components/Shered/Button/Button';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { actions } from '../../../store/shopingCart/shopingCartSlice';
 
 export const ProductDetails = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [product, setProduct] = useState<ProductType | null>(null);
+  const shopingCart: ProductType[] = useSelector(
+    (state: any) => state.shopingCart,
+  );
 
-  console.log('ProductDetails', id);
-  console.log('ProductDetails', product);
+  const isExists = product ? shopingCart.some(p => p.id === product.id) : false;
 
   useEffect(() => {
     getProduct(Number(id))
@@ -42,7 +48,13 @@ export const ProductDetails = () => {
             Count: {product.rating.count}
           </p>
 
-          <Button title="Add to cart" />
+          <Button
+            title={isExists ? 'Remove Cart' : 'Add to Cart'}
+            className={`cart__button ${
+              isExists ? 'cart__button--remove' : 'cart__button--add'
+            }`}
+            onClick={() => dispatch(actions.toggleShopingCart(product))}
+          />
         </div>
       )}
     </div>
