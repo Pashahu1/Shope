@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import { postProducts } from '../../utils/httpClient';
-import './CreateProduct.scss';
 import { useDispatch } from 'react-redux';
-import { actions } from '../../store/addNewProduct/addNewProductSlice';
+import { actions } from '../../../store/addNewProduct/addNewProductSlice';
+import { postProducts } from '../../../utils/httpClient';
 
-export const CreateProduct = () => {
-  const [title, setTitle] = useState<string>('');
-  const [price, setPrice] = useState<number>(0);
-  const [description, setDescription] = useState<string>('');
-  const [category, setCategory] = useState<string>('');
-  const [image, setImage] = useState<string>('');
+export const FormProduct = () => {
+  const [title, setTitle] = useState('');
+  const [price, setPrice] = useState(0);
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [image, setImage] = useState('');
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
+  const [nextId, setNextId] = useState(21);
 
   const dispatch = useDispatch();
 
@@ -34,22 +34,29 @@ export const CreateProduct = () => {
         'Description must be at least 10 characters long and less than 30',
       );
       return;
-    } else if (image.length < 10) {
+    } else if (
+      image.length < 10 ||
+      !image.startsWith('http') ||
+      !image.startsWith('https')
+    ) {
       setError(
         'Image link must be at least 10 characters long and start with "http"',
       );
       return;
     } else {
       try {
-        const newProduct = await postProducts({
+        const productData = {
           title,
           price,
           description,
           category,
           image,
-        });
+        };
 
-        dispatch(actions.addNewProduct(newProduct));
+        const createdProduct = await postProducts(productData);
+        const localProduct = { ...createdProduct, id: nextId };
+        setNextId(prev => prev + 1);
+        dispatch(actions.addNewProduct(localProduct));
         setSuccess('Product created successfully!');
         setTitle('');
         setPrice(0);

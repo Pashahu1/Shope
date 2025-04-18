@@ -20,7 +20,6 @@ export const Cart: React.FC<CartProps> = ({ product }) => {
 
   return (
     <article className="cart">
-      <span className="cart__delete">X</span>
       <img className="cart__img" src={product.image} alt={product.title} />
 
       <h3 className="cart__title">

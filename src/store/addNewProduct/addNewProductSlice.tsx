@@ -3,17 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { loadNewProducts, saveNewProducts } from '../storage';
 
 const initialState: ProductsType[] = loadNewProducts();
-
+console.log('Initial state from localStorage:', initialState);
 export const addNewProductSlice = createSlice({
   name: 'addNewProduct',
   initialState,
   reducers: {
     addNewProduct: (state, { payload }) => {
-      const exists = state.some(product => product.id === payload.id);
-      if (!exists) {
-        state.push(payload);
-        saveNewProducts(state);
-      }
+      state.push(payload);
+      saveNewProducts(state);
     },
   },
 });
