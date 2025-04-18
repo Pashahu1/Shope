@@ -1,9 +1,6 @@
 import './styles/App.scss';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
-
 import { Header } from './components/Layout/Header/Header';
 
 export const App = () => {
