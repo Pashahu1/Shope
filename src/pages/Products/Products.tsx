@@ -1,5 +1,5 @@
 import { Cart } from '../../components/Shered/Cart/Cart';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProductsType } from '../../types/Products';
 import { getProducts } from '../../utils/httpClient';
 import './Products.scss';
