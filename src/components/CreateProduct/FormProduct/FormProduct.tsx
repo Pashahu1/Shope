@@ -12,7 +12,7 @@ export const FormProduct = () => {
   const [image, setImage] = useState('');
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
-  const [nextId, setNextId] = useState(22);
+  const [nextId, setNextId] = useState(21);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -130,9 +130,9 @@ export const FormProduct = () => {
           type="file"
           accept="image/*"
           onChange={e => {
-            const file = e.target.files[0];
-            if (file) {
-              const imageURL = URL.createObjectURL(file);
+            const files = e.target.files;
+            if (files && files[0]) {
+              const imageURL = URL.createObjectURL(files[0]);
               setImage(imageURL);
             }
           }}
