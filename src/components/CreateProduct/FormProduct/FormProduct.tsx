@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { actions } from '../../../store/addNewProduct/addNewProductSlice';
 import { postProducts } from '../../../utils/httpClient';
+import { useNavigate } from 'react-router-dom';
 
 export const FormProduct = () => {
   const [title, setTitle] = useState('');
@@ -11,7 +12,8 @@ export const FormProduct = () => {
   const [image, setImage] = useState('');
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
-  const [nextId, setNextId] = useState(21);
+  const [nextId, setNextId] = useState(22);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -34,11 +36,7 @@ export const FormProduct = () => {
         'Description must be at least 10 characters long and less than 30',
       );
       return;
-    } else if (
-      image.length < 10 ||
-      !image.startsWith('http') ||
-      !image.startsWith('https')
-    ) {
+    } else if (image.length < 10) {
       setError(
         'Image link must be at least 10 characters long and start with "http"',
       );
@@ -58,6 +56,7 @@ export const FormProduct = () => {
         setNextId(prev => prev + 1);
         dispatch(actions.addNewProduct(localProduct));
         setSuccess('Product created successfully!');
+        navigate('/products/create');
         setTitle('');
         setPrice(0);
         setDescription('');
@@ -125,13 +124,18 @@ export const FormProduct = () => {
       </label>
 
       <label htmlFor="image" className="form__label">
-        Image Link
+        Upload Image
         <input
           id="image"
-          type="text"
-          placeholder="Add link on your page..."
-          value={image}
-          onChange={e => setImage(e.target.value)}
+          type="file"
+          accept="image/*"
+          onChange={e => {
+            const file = e.target.files[0];
+            if (file) {
+              const imageURL = URL.createObjectURL(file);
+              setImage(imageURL);
+            }
+          }}
           className="form__input"
         />
       </label>
