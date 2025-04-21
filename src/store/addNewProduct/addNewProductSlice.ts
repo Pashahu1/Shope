@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { loadNewProducts, saveNewProducts } from '../storage';
 
 const initialState: ProductsType[] = loadNewProducts();
-console.log('Initial state from localStorage:', initialState);
+
 export const addNewProductSlice = createSlice({
   name: 'addNewProduct',
   initialState,

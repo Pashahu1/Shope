@@ -36,6 +36,25 @@ export function postProducts(product: NewProductType): Promise<ProductsType> {
   });
 }
 
+export function putProduct(
+  id: number,
+  product: NewProductType,
+): Promise<ProductsType> {
+  return fetch(`https://fakestoreapi.com/products/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(product),
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to update product');
+    }
+
+    return response.json();
+  });
+}
+
 export function deleteProduct(id: number): Promise<ProductsType> {
   return fetch(`https://fakestoreapi.com/products/${id}`, {
     method: 'DELETE',

@@ -12,9 +12,7 @@ export const FormProduct = () => {
   const [image, setImage] = useState('');
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
-  const [nextId, setNextId] = useState(21);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,6 +34,9 @@ export const FormProduct = () => {
         'Description must be at least 10 characters long and less than 30',
       );
       return;
+    } else if (!category || category === '') {
+      setError('Please select a category');
+      return;
     } else if (image.length < 10) {
       setError(
         'Image link must be at least 10 characters long and start with "http"',
@@ -43,7 +44,11 @@ export const FormProduct = () => {
       return;
     } else {
       try {
+        const lastId = Number(localStorage.getItem('lastId') || '20');
+        const newId = lastId + 1;
+
         const productData = {
+          id: newId,
           title,
           price,
           description,
@@ -52,11 +57,15 @@ export const FormProduct = () => {
         };
 
         const createdProduct = await postProducts(productData);
-        const localProduct = { ...createdProduct, id: nextId };
-        setNextId(prev => prev + 1);
-        dispatch(actions.addNewProduct(localProduct));
+
+        dispatch(actions.addNewProduct(createdProduct));
+
+        localStorage.setItem('lastId', newId.toString());
         setSuccess('Product created successfully!');
-        navigate('/products/create');
+        setTimeout(() => {
+          navigate('/products/create');
+        }, 2000);
+
         setTitle('');
         setPrice(0);
         setDescription('');
@@ -116,7 +125,7 @@ export const FormProduct = () => {
           onChange={e => setCategory(e.target.value)}
           className="form__select"
         >
-          <option>Select</option>
+          <option value="">Select</option>
           <option value="jewelery">Jewelry</option>
           <option value="men's clothing">Men's clothing</option>
           <option value="women's clothing">Women's clothing</option>
@@ -127,15 +136,10 @@ export const FormProduct = () => {
         Upload Image
         <input
           id="image"
-          type="file"
-          accept="image/*"
-          onChange={e => {
-            const files = e.target.files;
-            if (files && files[0]) {
-              const imageURL = URL.createObjectURL(files[0]);
-              setImage(imageURL);
-            }
-          }}
+          type="text"
+          placeholder="Image URL"
+          value={image}
+          onChange={e => setImage(e.target.value)}
           className="form__input"
         />
       </label>

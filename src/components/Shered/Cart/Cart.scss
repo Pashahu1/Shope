@@ -64,6 +64,28 @@
     color: #888;
   }
 
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    &-button {
+      color: white;
+      padding: 8px 16px;
+      border-radius: 16px;
+      cursor: pointer;
+    }
+
+    &--edit {
+      background-color: blue;
+    }
+
+    &--delete {
+      background-color: red;
+    }
+  }
+
   &__button {
     display: inline-flex;
     align-items: center;
