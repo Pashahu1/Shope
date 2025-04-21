@@ -4,11 +4,14 @@ import { getProducts } from '../../utils/httpClient';
 import './Products.scss';
 import { useSelector } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
+import { ProductsType } from '../../types/Products';
 
 export const Products = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
-  const productList = useSelector((state: any) => state.products);
+  const productList: ProductsType[] = useSelector(
+    (state: any) => state.products,
+  );
   const { addProducts } = useActions();
 
   useEffect(() => {
