@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { App } from './App';
-import { CreateProduct } from './components/CreateProduct/CreateProduct';
 import { ProductCard } from './pages/ProductCard/ProductCard';
 import { Home } from './pages/Home/Home';
 import { ProductDetails } from './pages/ProductCard/ProductDetails/ProducrDetails';
