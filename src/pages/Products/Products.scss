@@ -1,6 +1,14 @@
 .products {
+  display: flex;
+  flex-direction: column;
   flex: 1;
-  max-width: 1200px;
+  max-width: 1036px;
+  gap: 20px;
+
+  &__header {
+    background-color: #ffffff;
+    border-radius: 16px;
+  }
 
   &__content {
     display: grid;

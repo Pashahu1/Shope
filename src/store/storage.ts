@@ -25,16 +25,3 @@ export const loadCart = (): ProductsType[] => {
     return [];
   }
 };
-
-export const saveNewProducts = (products: ProductsType[]) => {
-  localStorage.setItem('newProducts', JSON.stringify(products));
-};
-
-export const loadNewProducts = (): ProductsType[] => {
-  try {
-    const data = localStorage.getItem('newProducts');
-    return data ? JSON.parse(data) : [];
-  } catch {
-    return [];
-  }
-};

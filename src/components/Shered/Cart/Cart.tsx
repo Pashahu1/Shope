@@ -10,12 +10,16 @@ type CartProps = {
 };
 
 export const Cart: React.FC<CartProps> = ({ product }) => {
-  const { toggleShopingCart } = useActions();
+  const { toggleShopingCart, deleteProducts } = useActions();
   const shopingCart: ProductsType[] = useSelector(
     (state: any) => state.shopingCart,
   );
 
   const isExists: boolean = shopingCart.some(p => p.id === product.id);
+
+  const handleDelete = (id: number) => {
+    deleteProducts({ id });
+  };
 
   return (
     <article className="cart">
@@ -34,8 +38,16 @@ export const Cart: React.FC<CartProps> = ({ product }) => {
       </div>
 
       <div className="cart__actions">
-        <p className="cart__actions-button cart__actions--edit">Edit</p>
-        <p className="cart__actions-button cart__actions--delete">Delete</p>
+        <Link to={`edit/${product.id}`}>
+          <p className="cart__actions-button cart__actions--edit">Edit</p>
+        </Link>
+
+        <p
+          onClick={() => handleDelete(product.id)}
+          className="cart__actions-button cart__actions--delete"
+        >
+          Delete
+        </p>
       </div>
 
       <div className="cart__button">

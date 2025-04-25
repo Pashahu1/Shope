@@ -9,9 +9,6 @@ export const NavBar = () => {
           <NavLink to={'products'}>Products</NavLink>
         </li>
         <li className="nav__item">
-          <NavLink to={'products/create'}>Create Product</NavLink>
-        </li>
-        <li className="nav__item">
           <NavLink to={'products/basket'}>
             <img
               className="nav__item-img"

@@ -1,10 +1,11 @@
 import { Cart } from '../../components/Shered/Cart/Cart';
 import { useEffect, useState } from 'react';
 import { getProducts } from '../../utils/httpClient';
-import './Products.scss';
 import { useSelector } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
 import { ProductsType } from '../../types/Products';
+import './Products.scss';
+import { NewProduct } from '../../components/NewProduct/NewProduct';
 
 export const Products = () => {
   const [loading, setLoading] = useState(true);
@@ -12,12 +13,17 @@ export const Products = () => {
   const productList: ProductsType[] = useSelector(
     (state: any) => state.products,
   );
-  const { addProducts } = useActions();
+  const { readProducts } = useActions();
 
   useEffect(() => {
+    if (productList.length > 0) {
+      setLoading(false);
+      return;
+    }
+
     getProducts()
       .then(response => {
-        addProducts(response);
+        readProducts(response);
         setLoading(false);
       })
       .catch(() => {
@@ -27,6 +33,9 @@ export const Products = () => {
 
   return (
     <div className="products">
+      <div className="products__header">
+        <NewProduct />
+      </div>
       <div className="products__content">
         {loading && <div>Loading...</div>}
         {!loading &&

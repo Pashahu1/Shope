@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { actions } from '../../../store/addNewProduct/addNewProductSlice';
-import { postProducts } from '../../../utils/httpClient';
+import { postProducts } from '../../utils/httpClient';
 import { useNavigate } from 'react-router-dom';
-
+import { useActions } from '../../hooks/useActions';
+import './FormProduct.scss';
+import { getNextProductId } from '../../helper/getNextProductId';
 export const FormProduct = () => {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState(0);
@@ -13,7 +13,7 @@ export const FormProduct = () => {
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { addNewProduct } = useActions();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,8 +44,7 @@ export const FormProduct = () => {
       return;
     } else {
       try {
-        const lastId = Number(localStorage.getItem('lastId') || '20');
-        const newId = lastId + 1;
+        const newId = getNextProductId();
 
         const productData = {
           id: newId,
@@ -58,12 +57,12 @@ export const FormProduct = () => {
 
         const createdProduct = await postProducts(productData);
 
-        dispatch(actions.addNewProduct(createdProduct));
+        addNewProduct(createdProduct);
 
-        localStorage.setItem('lastId', newId.toString());
         setSuccess('Product created successfully!');
+
         setTimeout(() => {
-          navigate('/products/create');
+          navigate('/products');
         }, 2000);
 
         setTitle('');
