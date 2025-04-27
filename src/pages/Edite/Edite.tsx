@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useActions } from '../../hooks/useActions';
+import { putProducts } from '../../utils/httpClient';
 
 export const Edite = () => {
   const { id } = useParams();
@@ -12,7 +13,7 @@ export const Edite = () => {
   const { updateProducts } = useActions();
 
   const [title, setTitle] = useState(existingProduct?.title || '');
-  const [price, setPrice] = useState(existingProduct?.price || '');
+  const [price, setPrice] = useState(existingProduct?.price || 0);
   const [description, setDescription] = useState(
     existingProduct?.description || '',
   );
@@ -29,6 +30,7 @@ export const Edite = () => {
       category,
       image,
     };
+    putProducts(productsId, updatedProduct);
     console.log('Updated product:', updatedProduct);
     updateProducts(updatedProduct);
     navigation('/products');

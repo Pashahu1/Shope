@@ -4,6 +4,7 @@ import './Cart.scss';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useActions } from '../../../hooks/useActions';
+import { deleteProduct } from '../../../utils/httpClient';
 
 type CartProps = {
   product: ProductsType;
@@ -19,6 +20,7 @@ export const Cart: React.FC<CartProps> = ({ product }) => {
 
   const handleDelete = (id: number) => {
     deleteProducts({ id });
+    deleteProduct(id);
   };
 
   return (
@@ -39,15 +41,17 @@ export const Cart: React.FC<CartProps> = ({ product }) => {
 
       <div className="cart__actions">
         <Link to={`edit/${product.id}`}>
-          <p className="cart__actions-button cart__actions--edit">Edit</p>
+          <button className="cart__actions-button cart__actions--edit">
+            Edit
+          </button>
         </Link>
 
-        <p
+        <button
           onClick={() => handleDelete(product.id)}
           className="cart__actions-button cart__actions--delete"
         >
           Delete
-        </p>
+        </button>
       </div>
 
       <div className="cart__button">

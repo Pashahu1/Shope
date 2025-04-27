@@ -30,8 +30,10 @@ export const productsSlice = createSlice({
     },
     deleteProducts: (state, { payload }) => {
       const { id } = payload;
+      const remove = state.filter(s => s.id !== id);
+      saveProducts(remove);
 
-      return state.filter(s => s.id !== id);
+      return remove;
     },
   },
 });

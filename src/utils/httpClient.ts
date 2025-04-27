@@ -35,3 +35,31 @@ export function postProducts(product: NewProductType): Promise<ProductsType> {
     return response.json();
   });
 }
+
+export function putProducts(productId: number, updatedData: object) {
+  return fetch(`https://fakestoreapi.com/products/${productId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedData),
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to put product');
+    }
+
+    return response.json();
+  });
+}
+
+export function deleteProduct(id: number) {
+  return fetch(`https://fakestoreapi.com/products/${id}`, {
+    method: 'DELETE',
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to Delte product');
+    }
+
+    return response.json();
+  });
+}
