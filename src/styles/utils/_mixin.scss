@@ -1,0 +1,31 @@
+@import './vars';
+@mixin gridPage {
+  --column: 3;
+  display: grid;
+  grid-template-columns: repeat(var(--column), 280px);
+  column-gap: 20px;
+
+  @include onTablet {
+    --column: 2;
+    grid-template-columns: repeat(var(--column), 280px);
+    column-gap: 16px;
+  }
+
+  @include onMobile {
+    --column: 1;
+    grid-template-columns: repeat(var(--column), 280px);
+  }
+  @content;
+}
+
+@mixin onTablet {
+  @media (max-width: $tabletWidth) {
+    @content;
+  }
+}
+
+@mixin onMobile {
+  @media (max-width: $mobileWidth) {
+    @content;
+  }
+}

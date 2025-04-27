@@ -1,11 +1,37 @@
+@import '../../styles/utils/mixin';
+
 .product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   max-width: 1200px;
 
+  &__cost {
+    padding: 16px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #2d3748;
+    }
+
+    span {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #48bb78;
+    }
+  }
+
   &__content {
-    display: grid;
-    grid-template-columns: repeat(3, 280px);
-    gap: 20px;
-    justify-content: center;
-    width: 100%;
+    @include gridPage;
+    // display: grid;
+    // grid-template-columns: repeat(3, 280px);
+    // gap: 20px;
   }
 }

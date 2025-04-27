@@ -26,8 +26,8 @@ export const FormProduct = () => {
         'Title must be at least 3 characters long and less than 10 or it must not be a number',
       );
       return;
-    } else if (price <= 0) {
-      setError('Price must be greater than 0');
+    } else if (price <= 0 || isNaN(price)) {
+      setError('Price must be greater than 0 and not be a string');
       return;
     } else if (description.length < 10 || description.length > 30) {
       setError(
@@ -124,7 +124,9 @@ export const FormProduct = () => {
           onChange={e => setCategory(e.target.value)}
           className="form__select"
         >
-          <option value="">Select</option>
+          <option disabled value="">
+            Select
+          </option>
           <option value="jewelery">Jewelry</option>
           <option value="men's clothing">Men's clothing</option>
           <option value="women's clothing">Women's clothing</option>

@@ -1,7 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import './NavBar.scss';
+import { useSelector } from 'react-redux';
 
 export const NavBar = () => {
+  const shopingCart = useSelector((state: any) => state.shopingCart);
   return (
     <nav className="nav">
       <ul className="nav__list">
@@ -15,6 +17,9 @@ export const NavBar = () => {
               src="shop-icon.png"
               alt="shop-icon"
             />
+            {shopingCart.length > 0 && (
+              <span className="nav__item--counter">{shopingCart.length}</span>
+            )}
           </NavLink>
         </li>
       </ul>

@@ -1,3 +1,4 @@
+@import '../../styles/utils/mixin';
 .products {
   display: flex;
   flex-direction: column;
@@ -11,8 +12,7 @@
   }
 
   &__content {
-    display: grid;
-    grid-template-columns: repeat(3, 280px);
+    @include gridPage;
     gap: 20px;
     justify-content: center;
     width: 100%;
